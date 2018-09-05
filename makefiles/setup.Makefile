@@ -75,4 +75,5 @@ package-artifacts:
 linkcheck:
 	linkchecker --version
 	chmod -R go+rwX duckuments-dist
-	linkchecker --allow-root  --check-extern $(shell zsh -c "ls -1 duckuments-dist/**/out/*.html") | tee duckuments-dist/linkchecker.txt
+	# --allow-root  not in current version
+	linkchecker --check-extern $(shell zsh -c "ls -1 duckuments-dist/**/out/*.html") | tee duckuments-dist/linkchecker.txt
