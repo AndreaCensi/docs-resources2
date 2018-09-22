@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # language=sh
-# set -euo pipefail
-# set -x # echo commands
+#set -euo pipefail
+set -x # echo commands
 
 short=$1
 src=$2
@@ -18,17 +18,18 @@ fi
 
 org=`git config --get remote.origin.url | cut -f2 -d":"  | cut -f1 -d/ | tr '[:upper:]' '[:lower:]'`
 
-base=http://docs-branches.duckietown.org/${org}/duckuments/branch/${branch}
-cross=${base}/all_crossref.html
-permalink_prefix=${base}/${short}/out
-extra_crossrefs=${base}/all_crossref.html
+#base=http://docs-branches.duckietown.org/${org}/duckuments/branch/${branch}
+#cross=${base}/all_crossref.html
+#permalink_prefix=${base}/${short}/out
+#extra_crossrefs=${base}/all_crossref.html
 
 
 if [ "$CI" = "" ]
 then
    echo "Not on Circle, using parallel compilation."
    cmd="rparmake n=4"
-   options1="--extra_crossrefs ${extra_crossrefs}"
+#   options1="--extra_crossrefs ${extra_crossrefs}"
+   options1=""
 else
    echo "On Circle, not using parallel compilation to avoid running out of memory."
    cmd=rmake
@@ -80,8 +81,9 @@ DISABLE_CONTRACTS=1 NODE_PATH=${NP}  mcdp-render-manual \
     --wordpress_integration \
     --output_crossref ${dist}/${short}/crossref.html \
     -o out/${short} \
-    --permalink_prefix ${permalink_prefix} \
+    --resolve_external \
+    --ignore_ref_errors \
     ${options1} \
     ${options2} \
     -c "config echo 1; ${cmd}"
-#    --symbols docs/symbols.tex \
+#    --permalink_prefix ${permalink_prefix} \
