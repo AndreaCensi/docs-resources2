@@ -27,11 +27,13 @@ compile-docker: update-resources
 	echo gitdir_super = $(gitdir_super)
 	mkdir -p /tmp/fake-$(USER)-home
 	docker run \
-		-v $(gitdir):$(gitdir) \
-		-v $(gitdir_super):$(gitdir_super) \
-		-v $(pwd1):$(pwd1) \
+		-v "$(gitdir):$(gitdir)" \
+		-v "$(gitdir_super):$(gitdir_super)" \
+		-v "$(pwd1):$(pwd1)" \
 		-v /tmp/fake-$(USER)-home:/home/$(USER) \
-		-e USER=$(USER) -e USERID=$(uid1) --user $(uid1) \
+		-e USER=$(USER) \
+		-e USERID=$(uid1) \
+		--user $(uid1) \
 		-e COLUMNS=$(cols)\
 		-ti \
 		"$(IMAGE)" \
