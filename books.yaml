@@ -40,6 +40,9 @@
         - opmanual_duckietown:
             title: Duckietown manual
 
+        - opmanual_autolab:
+            title: Autolab manual
+
         - software_reference:
             title: Reference for useful commands
 
