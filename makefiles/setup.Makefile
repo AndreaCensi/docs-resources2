@@ -65,9 +65,8 @@ install-docker-ubuntu16:
 
 
 # only for CI
-compile-native-ci:
-	. /project/deploy/bin/activate && \
-		/project/run-book-native.sh "$(BOOKNAME)" "$(SRC)" "$(RESOURCES)" "$(pwd1)"
+compile-native-ci:	
+	/project/run-book-native.sh "$(BOOKNAME)" "$(SRC)" "$(RESOURCES)" "$(pwd1)"
 
 
 package-artifacts:
