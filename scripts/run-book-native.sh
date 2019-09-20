@@ -82,6 +82,7 @@ DISABLE_CONTRACTS=1 NODE_PATH=${NP}  mcdp-render-manual \
     -o out/${short} \
     --resolve_external \
     --ignore_ref_errors \
+    --likebtn 5ae54e0d6fd08bb24f3a7fa1 \
     ${options1} \
     ${options2} \
     -c "config echo 1; ${cmd}"
