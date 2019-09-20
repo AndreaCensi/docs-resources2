@@ -5,18 +5,19 @@ set -x # echo commands
 
 short=$1
 src=$2
+dist=duckuments-dist
 
 
 
-if [ "$CI" = "" ]
-then
-   branch=`git rev-parse --abbrev-ref HEAD`
-else
-   branch=${CIRCLE_BRANCH}
-fi
+#if [ "$CI" = "" ]
+#then
+#   branch=`git rev-parse --abbrev-ref HEAD`
+#else
+#   branch=${CIRCLE_BRANCH}
+#fi
 
 
-org=`git config --get remote.origin.url | cut -f2 -d":"  | cut -f1 -d/ | tr '[:upper:]' '[:lower:]'`
+#org=`git config --get remote.origin.url | cut -f2 -d":"  | cut -f1 -d/ | tr '[:upper:]' '[:lower:]'`
 
 #base=http://docs-branches.duckietown.org/${org}/duckuments/branch/${branch}
 #cross=${base}/all_crossref.html
@@ -38,7 +39,6 @@ fi
 
 
 
-dist=duckuments-dist
 
 if [ "$ONLY_FOR_REFS" = "" ]
 then
@@ -70,7 +70,7 @@ mkdir -p ${dist}
 
 NP=${PWD}/node_modules:${NODE_PATH}
 
-#--likebtn 5ae54e0d6fd08bb24f3a7fa1 \ 
+#--likebtn 5ae54e0d6fd08bb24f3a7fa1 \
 
 DISABLE_CONTRACTS=1 NODE_PATH=${NP}  mcdp-render-manual \
     --src ${src} \
@@ -78,7 +78,6 @@ DISABLE_CONTRACTS=1 NODE_PATH=${NP}  mcdp-render-manual \
     --resources resources:${dist} \
     --stylesheet v_manual_split \
     --stylesheet_pdf v_manual_blurb_ready \
-    --wordpress_integration \
     --output_crossref ${dist}/${short}/crossref.html \
     -o out/${short} \
     --resolve_external \
@@ -87,3 +86,4 @@ DISABLE_CONTRACTS=1 NODE_PATH=${NP}  mcdp-render-manual \
     ${options2} \
     -c "config echo 1; ${cmd}"
 #    --permalink_prefix ${permalink_prefix} \
+#    --wordpress_integration \

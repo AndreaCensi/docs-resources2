@@ -1,6 +1,6 @@
 RESOURCES=resources
 
-IMAGE?=andreacensi/mcdp_books:duckuments
+IMAGE?=andreacensi/mcdp_books:daffy-devel
 
 clean:
 	rm -rf out duckuments-dist
@@ -42,30 +42,12 @@ compile-docker: update-resources
 		"$(pwd1)"
 
 
-
-install-docker-ubuntu16:
-	sudo apt-get remove docker docker-engine docker.io
-	sudo apt-get install \
-		apt-transport-https \
-		ca-certificates \
-		curl \
-		software-properties-common
-	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-	sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable"
-	sudo apt-get update
-	sudo apt-get install docker-ce
-
-	echo "Adding user to docker group"
-	sudo adduser $(USER) docker
-
-	echo
-	echo
-	echo "Note: type "groups" and see if "docker" appears. If not, close the shell and restart another one."
-	echo "Sometimes the group update does not take effect immediately."
-
+submodule-update:
+	git submodule sync --recursive
+	git submodule update --init --recursive
 
 # only for CI
-compile-native-ci:	
+compile-native-ci:
 	/project/run-book-native.sh "$(BOOKNAME)" "$(SRC)" "$(RESOURCES)" "$(pwd1)"
 
 
