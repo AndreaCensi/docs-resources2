@@ -70,8 +70,6 @@ mkdir -p ${dist}
 
 NP=${PWD}/node_modules:${NODE_PATH}
 
-#--likebtn 5ae54e0d6fd08bb24f3a7fa1 \
-
 DISABLE_CONTRACTS=1 NODE_PATH=${NP}  mcdp-render-manual \
     --src ${src} \
     --bookshort "${short}" \
@@ -83,8 +81,7 @@ DISABLE_CONTRACTS=1 NODE_PATH=${NP}  mcdp-render-manual \
     --resolve_external \
     --ignore_ref_errors \
     --likebtn 5ae54e0d6fd08bb24f3a7fa1 \
+    --remove "[status=draft],[status=beta]" \
     ${options1} \
     ${options2} \
     -c "config echo 1; ${cmd}"
-#    --permalink_prefix ${permalink_prefix} \
-#    --wordpress_integration \
