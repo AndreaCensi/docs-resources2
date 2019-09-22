@@ -1,10 +1,12 @@
 #!/usr/bin/env bash
 # language=sh
 #set -euo pipefail
+set -e # errors
 set -x # echo commands
 
 short=$1
 src=$2
+golden=$3 # yes
 dist=duckuments-dist
 
 
@@ -25,7 +27,7 @@ dist=duckuments-dist
 #extra_crossrefs=${base}/all_crossref.html
 
 
-if [ "$CI" = "" ]
+if [ "${CI:-}" = "" ]
 then
    echo "Not on Circle, using parallel compilation."
    cmd="rparmake n=4"
@@ -37,10 +39,18 @@ else
    options1=""
 fi
 
+if [ "${golden}" = "yes" ]
+then
+    echo "Golden build"
+    options_remove="--remove [status=draft],[status=beta] "
+else
+    echo "Not a golden build"
+    options_remove=""
+fi
 
 
 
-if [ "$ONLY_FOR_REFS" = "" ]
+if [ "${ONLY_FOR_REFS}" = "" ]
 then
    options2="--output_file ${dist}/${short}/out.html --split ${dist}/${short}/out/"
 
@@ -81,7 +91,7 @@ DISABLE_CONTRACTS=1 NODE_PATH=${NP}  mcdp-render-manual \
     --resolve_external \
     --ignore_ref_errors \
     --likebtn 5ae54e0d6fd08bb24f3a7fa1 \
-    --remove "[status=draft],[status=beta]" \
+    ${options_remove}\
     ${options1} \
     ${options2} \
     -c "config echo 1; ${cmd}"

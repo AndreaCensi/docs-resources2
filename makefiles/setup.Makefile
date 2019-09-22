@@ -13,7 +13,9 @@ update-resources:
 THIS_DIR := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 
 compile-native: update-resources
-	$(THIS_DIR)/../scripts/run-book-native.sh "$(BOOKNAME)" "$(SRC)" "$(RESOURCES)" "$(PWD)"
+	$(THIS_DIR)/../scripts/run-book-native.sh "$(BOOKNAME)" "$(SRC)"  "no"
+compile-native-golden: update-resources
+	$(THIS_DIR)/../scripts/run-book-native.sh "$(BOOKNAME)" "$(SRC)"  "yes"
 
 gitdir_super:=$(shell git rev-parse --show-superproject-working-tree)
 gitdir:=$(shell git rev-parse --show-toplevel)
