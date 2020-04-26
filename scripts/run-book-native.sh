@@ -84,7 +84,7 @@ DISABLE_CONTRACTS=1 NODE_PATH=${NP}  mcdp-render-manual \
     --src ${src} \
     --bookshort "${short}" \
     --resources resources:${dist} \
-    --stylesheet v_manual_split \
+    --stylesheet v_manual_split_responsive \
     --stylesheet_pdf v_manual_blurb_ready \
     --output_crossref ${dist}/${short}/crossref.html \
     -o out/${short} \
