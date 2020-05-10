@@ -54,6 +54,7 @@ compile-native-ci:
 
 
 package-artifacts:
+	mkdir -p out
 	bash ./resources/scripts/package-artifacts.sh out/package.tgz
 
 
